@@ -81,10 +81,8 @@
     KeycodeInformer *ki = [KeycodeInformer sharedInstance];
 
     NSArray *keyCodeInfos = [ki keyCodesForString:data];
-
-    unsigned j, jj;
     
-    for (j = 0, jj = [keyCodeInfos count]; j < jj; ++j) {
+    for (unsigned j = 0; j < [keyCodeInfos count]; ++j) {
 
         NSArray *keyCodeInfo = [keyCodeInfos objectAtIndex:j];
 

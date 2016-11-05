@@ -122,9 +122,8 @@ static KeycodeInformer *sharedInstance = nil;
 - (NSArray *)keyCodesForString:(NSString *)string {
     NSMutableArray *keyCodes = [[NSMutableArray alloc] initWithCapacity:[string length]];
     string                   = [[self prepareString:string] decomposedStringWithCanonicalMapping];
-    unsigned i, ii;
     
-    for (i = 0, ii = [string length]; i < ii; i++) {
+    for (unsigned i = 0; i < [string length]; i++) {
 
         NSRange range = [string rangeOfComposedCharacterSequenceAtIndex:i];
 
