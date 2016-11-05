@@ -31,6 +31,8 @@
 #define KEYCODE_SHIFT 56
 #define KEYCODE_ALT   58
 
+#define SYNTHETIC_KB_ID 666
+
 #define CHARINFO_URL_TEMPLATE @"https://github.com/BlueM/cliclick/blob/%@/README-Characters.md"
 #define HISTORY_URL           @"http://www.bluem.net/jump/cliclick-versions/"
 #define DONATIONS_URL         @"http://www.bluem.net/jump/donations/"

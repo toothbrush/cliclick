@@ -103,10 +103,13 @@
         }
 
         CGEventRef keyDownEvent = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)keyCode, true);
+        // oof, ugly hack.  Tag my synthetic events with a special keyboard ID
+        CGEventSetIntegerValueField(keyDownEvent, kCGKeyboardEventKeyboardType, SYNTHETIC_KB_ID);
         CGEventPost(kCGSessionEventTap, keyDownEvent);
         CFRelease(keyDownEvent);
 
         CGEventRef keyUpEvent = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)keyCode, false);
+        CGEventSetIntegerValueField(keyUpEvent, kCGKeyboardEventKeyboardType, SYNTHETIC_KB_ID);
         CGEventPost(kCGSessionEventTap, keyUpEvent);
         CFRelease(keyUpEvent);
 
