@@ -1,7 +1,11 @@
-CC = cc 
+CC = clang
 CFLAGS = -include cliclick_Prefix.pch -I Actions -I .
+PREFIX = /usr/local
+BINS = cliclick
 
-cliclick: Actions/ClickAction.o \
+all: $(addprefix bin/,$(BINS))
+
+bin/cliclick: Actions/ClickAction.o \
           Actions/ColorPickerAction.o \
           Actions/DoubleclickAction.o \
           Actions/DragDownAction.o \
@@ -20,11 +24,19 @@ cliclick: Actions/ClickAction.o \
           ActionExecutor.o \
           KeycodeInformer.o \
           cliclick.o
-	gcc -o cliclick $^ -framework Cocoa -framework Carbon
+	$(CC) -o bin/cliclick $^ -framework Cocoa -framework Carbon
 
-install: cliclick
-	cp cliclick /usr/local/bin/
+bindir:
+	@install -m755 -d $(PREFIX)/bin
+
+install: all bindir $(addprefix $(PREFIX)/bin/,$(BINS))
+
+$(PREFIX)/bin/%: bin/%
+	@echo " INSTALL" $@
+	@install -m 755 $< $@
 
 clean:
 	@rm -vf *.o Actions/*.o
 	@rm -vf cliclick
+
+.PHONY: all install clean
