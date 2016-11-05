@@ -81,7 +81,7 @@
     KeycodeInformer *ki = [KeycodeInformer sharedInstance];
 
     NSArray *keyCodeInfos = [ki keyCodesForString:data];
-    
+
     for (unsigned j = 0; j < [keyCodeInfos count]; ++j) {
 
         NSArray *keyCodeInfo = [keyCodeInfos objectAtIndex:j];
@@ -92,17 +92,15 @@
             CGEventRef e = CGEventCreateKeyboardEvent(NULL, KEYCODE_SHIFT, true);
             CGEventPost(kCGSessionEventTap, e);
             CFRelease(e);
+            nanosleep(&waitingtime, NULL); // Note: the delay is not needed for all keys. Strange, but true.
         }
-
-        nanosleep(&waitingtime, NULL); // Note: the delay is not needed for all keys. Strange, but true.
 
         if ([[keyCodeInfo objectAtIndex:1] intValue] & MODIFIER_ALT) {
             CGEventRef e = CGEventCreateKeyboardEvent(NULL, KEYCODE_ALT, true);
             CGEventPost(kCGSessionEventTap, e);
             CFRelease(e);
+            nanosleep(&waitingtime, NULL);
         }
-
-        nanosleep(&waitingtime, NULL);
 
         CGEventRef keyDownEvent = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)keyCode, true);
         CGEventPost(kCGSessionEventTap, keyDownEvent);
@@ -118,17 +116,15 @@
             CGEventRef e = CGEventCreateKeyboardEvent(NULL, KEYCODE_ALT, false);
             CGEventPost(kCGSessionEventTap, e);
             CFRelease(e);
+            nanosleep(&waitingtime, NULL);
         }
-
-        nanosleep(&waitingtime, NULL);
 
         if ([[keyCodeInfo objectAtIndex:1] intValue] & MODIFIER_SHIFT) {
             CGEventRef e = CGEventCreateKeyboardEvent(NULL, KEYCODE_SHIFT, false);
             CGEventPost(kCGSessionEventTap, e);
             CFRelease(e);
+            nanosleep(&waitingtime, NULL);
         }
-
-        nanosleep(&waitingtime, NULL);
     }
 }
 
