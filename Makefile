@@ -26,6 +26,10 @@ bin/cliclick: Actions/ClickAction.o \
           cliclick.o
 	$(CC) -o bin/cliclick $^ -framework Cocoa -framework Carbon
 
+# This appears to be default in BSD Make, not GNU Make...
+%.o: %.m
+	$(CC) ${CFLAGS} -c -o $@ $<
+
 bindir:
 	@install -m755 -d $(PREFIX)/bin
 
